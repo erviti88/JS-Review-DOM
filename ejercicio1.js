@@ -51,11 +51,14 @@ const newDiv = document.createElement('div');
 const newCountriesUl = document.createElement('ul');
 
 for (const country of newCountries) {
-    newCountriesUl.innerHTML += `<li><h4>${country.title}</h4><img src='${country.imgUrl}'></li>`;
+    const newLi = document.createElement('li');
+    newLi.classList.add('country-li');
+    newLi.innerHTML = `<h4>${country.title}</h4><img src='${country.imgUrl}'>`;
+    newCountriesUl.appendChild(newLi);
 }
 
 newDiv.appendChild(newCountriesUl);
-document.body.append(newDiv);
+document.body.appendChild(newDiv);
 
 /* 1.5 Basandote en el ejercicio anterior. Crea un botón que elimine el último 
 elemento de la lista. */
@@ -66,30 +69,21 @@ button.innerText = 'Borra el último elemento';
 button.addEventListener('click', () => {
     const lastChild = newCountriesUl.lastElementChild;
     newCountriesUl.removeChild(lastChild);
-})
+});
 
-document.body.append(button);
+document.body.appendChild(button);
 
 /* 1.6 Basandote en el ejercicio anterior. Crea un botón para cada uno de los 
 elementos de las listas que elimine ese mismo elemento del html. */
 
-const newDiv2$$ = document.createElement('div');
-document.body.appendChild(newDiv2$$)
+const countryLi = document.querySelectorAll('.country-li');
 
-for (const country of newCountries) {
-    const list$$ = document.createElement("div");
-    const h4$$ = document.createElement("h4");
-    const img$$ = document.createElement("img");
-    const button$$ = document.createElement("button");
+for (const li of countryLi) {
+    const deleteButton = document.createElement('button');
+    deleteButton.innerText = 'Borra este elemento';
+    li.appendChild(deleteButton);
 
-    button$$.innerText = 'Borra este elemento';
-    img$$.setAttribute('src', country.imgUrl);
-
-    button$$.addEventListener('click', () => remove(list$$));
-
-    list$$.appendChild(h4$$);
-    list$$.appendChild(h4$$);
-    list$$.appendChild(button$$);
-    divPadre$$.appendChild(list$$);
+    deleteButton.addEventListener('click', () => {
+        li.remove();
+    });
 }
-
